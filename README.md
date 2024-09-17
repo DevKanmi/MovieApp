@@ -125,3 +125,4 @@ In case of errors, the API will return an appropriate error message. For example
 - `500 Internal Server` Error for general server issues.
 
 # Still In Development
+- ### More Endpoints to be added.
