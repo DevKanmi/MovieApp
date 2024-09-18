@@ -44,7 +44,42 @@ const highestGrossing = async(request, response) =>{
     }
 }
 
+//Get the top 10 movies with the highest IMDb Rstings
+
+const highestRatings = async(request, response) =>{
+    try{
+    const movies = await Movies.aggregate([
+        {   //Stage 1
+            $sort :{"ratings.imdb": -1} //Arrange in Descending order
+        },
+        {   //Stage 2
+            $limit: 5 // Top 5 Highest rated Imdb
+        },
+        {
+            $project : {
+                "title": 1,
+                "releaseYear": 1,
+                "genre": 1,
+                "ratings.imdb": 1
+            }
+        }
+
+    ])
+
+    response.status(200).json({
+        message: "Top 5 Rated Imdb Movies",
+        movies
+    })
+    }
+    catch(error){
+        console.log(error)
+        response.status(500).json({error: "Something went Wrong"})
+    }
+}
+
+
 module.exports ={
     filterGenrebyYear,
-    highestGrossing
+    highestGrossing,
+    highestRatings
 }
