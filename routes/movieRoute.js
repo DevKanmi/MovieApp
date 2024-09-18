@@ -2,7 +2,7 @@ const movieRouter = require('express').Router()
 
 //Import Controllers
 const {createMovie, getAllMovies, deleteMovie} = require('../controllers/routeController')
-const {filterGenrebyYear,highestGrossing,highestRatings} = require('../controllers/moviesAggregrate')
+const {filterGenrebyYear,highestGrossing,highestRatings, moviesforActor} = require('../controllers/moviesAggregrate')
 
 
 
@@ -15,5 +15,5 @@ movieRouter.delete('/:id',deleteMovie)
 movieRouter.get('/filter',filterGenrebyYear)
 movieRouter.get('/top',highestGrossing)
 movieRouter.get('/top5rated', highestRatings)
-
+movieRouter.get('/actor/',moviesforActor)
 module.exports = movieRouter

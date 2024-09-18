@@ -55,8 +55,8 @@ const highestRatings = async(request, response) =>{
         {   //Stage 2
             $limit: 5 // Top 5 Highest rated Imdb
         },
-        {
-            $project : {
+        {   //Stage 3
+            $project : {  //Return Specific Fields
                 "title": 1,
                 "releaseYear": 1,
                 "genre": 1,
@@ -77,9 +77,43 @@ const highestRatings = async(request, response) =>{
     }
 }
 
+//Find Specific Movies an actor appeared in.
+const moviesforActor = async(request, response) =>{
+    const{actor} = request.query
+    try{
+        const movies = await Movies.aggregate([
+            {  //Stage 1: Unwind all arrays of cast 
+                $unwind : "$cast"
+            },
+            {  //Stage 2 : display all movies that contain this actor
+                $match: {cast: actor}
+            },
+            {
+                $project: {
+                    "title": 1,
+                    "releaseYear": 1,
+                    "genre":1,
+                    "cast":1 
+                }
+            }
+            //Example: http://localhost:3001/api/movies/actor?actor=Keanu%20Reeves
+    ])
+    if(movies.length === 0) return response.status(404).json({error:`Movies with ${ actor } Can't be Found, Search For Another Actor!`})
+   
+        return response.status(200).json({
+            message: `movies that ${ actor } acted in are:`,
+            movies
+        })
+    }
+    catch(error){
+        console.log(error)
+        response.status(500).json({error: "Something went Wrong"})
+    }
+}
 
 module.exports ={
     filterGenrebyYear,
     highestGrossing,
-    highestRatings
+    highestRatings,
+    moviesforActor
 }
