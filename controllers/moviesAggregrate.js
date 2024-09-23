@@ -35,7 +35,7 @@ const highestGrossing = async(request, response) =>{
            {$limit: grossing}
         ])
         return response.status(200).json({
-            message:   `Top ${ grossing } movies are: `,
+            message:  `Top ${ grossing } movies are: `,
             movie
     })
     }
@@ -44,7 +44,7 @@ const highestGrossing = async(request, response) =>{
     }
 }
 
-//Get the top 10 movies with the highest IMDb Rstings
+//Get the top 5 movies with the highest IMDb Rstings
 
 const highestRatings = async(request, response) =>{
     try{

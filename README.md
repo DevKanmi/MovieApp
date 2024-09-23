@@ -118,11 +118,56 @@ GET http://localhost:3001/api/movies/filter?genre=Crime&releaseYear=1971
 ]
 ```
 
+3. ### Find Specific Movies an Actor Appeared In
+This endpoint allows users to search for movies in which a particular actor has appeared. The request takes the actor's name as a query parameter and returns a list of movies that feature the specified actor.
+
+#### Endpoint
+
+```bash
+GET /api/movies/actor
+```
+
+#### Query Parameter
+- `actor`:(string) Name of the Actor you want to find.
+
+#### Example Request
+
+``` bash
+GET http://localhost:3001/api/movies/actor?actor=Keanu%20Reeves
+```
+
+#### Example Response: 
+if movies featuring the actor are found:
+```bash
+{
+  "message": "movies that Keanu Reeves acted in are:",
+  "movies": [
+    {
+      "title": "The Matrix",
+      "releaseYear": 1999,
+      "genre": "Action",
+      "cast": ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"]
+    },
+    {
+      "title": "John Wick",
+      "releaseYear": 2014,
+      "genre": "Action",
+      "cast": ["Keanu Reeves", "Michael Nyqvist", "Alfie Allen"]
+    }
+  ]
+}
+```
+
+if no movies are found for the specified actor:
+
+```bash
+{
+  "error": "Movies with Keanu Reeves Can't be Found, Search For Another Actor!"
+}
+```
+
 ### Error Handling
 In case of errors, the API will return an appropriate error message. For example:
 
 - `404 Not Found` if the movie is not found in the database during deletion.
 - `500 Internal Server` Error for general server issues.
-
-# Still In Development
-- ### More Endpoints to be added.
