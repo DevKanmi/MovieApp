@@ -39,7 +39,7 @@ This endpoint allows you to create a new movie in the database.
 - Status: `201 Created`
 - The saved movie will be returned
 
-## Aggregrate Operations
+## Aggregate Operations
 
 1. ### Get Top K Highest Grossing Movies
 This endpoint returns the top K highest-grossing movies based on their box office performance.
@@ -169,5 +169,5 @@ if no movies are found for the specified actor:
 ### Error Handling
 In case of errors, the API will return an appropriate error message. For example:
 
-- `404 Not Found` if the movie is not found in the database during deletion.
+- `404 Not Found` if the movie is not found in the database.
 - `500 Internal Server` Error for general server issues.
